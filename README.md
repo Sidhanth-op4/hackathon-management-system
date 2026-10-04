@@ -54,5 +54,13 @@ Optional: `DB_HOST` (default `localhost`), `DB_NAME` (default `hackathon_db`).
 ## ER diagram
 ![ER Diagram](docs/er_diagram.png)
 
+
+## Live Demo
+https://hackathon-management-system-i9ftdrdx25rx4urdc8irhq.streamlit.app
+
 ## Screenshots
-Add screenshots in the `screenshots/` folder.
+![Dashboard](screenshots/01_dashboard.png)
+![Teams](screenshots/02_teams_view.png)
+![Leaderboard](screenshots/12_leaderboard.png)
+![Team full trigger](screenshots/03_trigger_team_full.png)
+![Already in team trigger](screenshots/04_trigger_already_in_team.png)
