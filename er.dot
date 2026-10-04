@@ -1,0 +1,45 @@
+graph ER {
+  rankdir=LR; nodesep=0.6; ranksep=1.1;
+  node [shape=plaintext, fontname="Helvetica", fontsize=11];
+  edge [fontname="Helvetica", fontsize=10, color="#444444"];
+  participants [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4">
+    <TR><TD BGCOLOR="#1f4e79"><FONT COLOR="white"><B>participants</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><U>participant_id</U> (PK)</TD></TR>
+    <TR><TD ALIGN="LEFT">full_name</TD></TR><TR><TD ALIGN="LEFT">email (UNIQUE)</TD></TR>
+    <TR><TD ALIGN="LEFT">college</TD></TR></TABLE>>];
+  hackathons [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4">
+    <TR><TD BGCOLOR="#1f4e79"><FONT COLOR="white"><B>hackathons</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><U>hackathon_id</U> (PK)</TD></TR>
+    <TR><TD ALIGN="LEFT">title</TD></TR><TR><TD ALIGN="LEFT">start_date, end_date</TD></TR>
+    <TR><TD ALIGN="LEFT">max_team_size</TD></TR></TABLE>>];
+  teams [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4">
+    <TR><TD BGCOLOR="#1f4e79"><FONT COLOR="white"><B>teams</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><U>team_id</U> (PK)</TD></TR>
+    <TR><TD ALIGN="LEFT">hackathon_id (FK)</TD></TR><TR><TD ALIGN="LEFT">team_name</TD></TR></TABLE>>];
+  team_members [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4">
+    <TR><TD BGCOLOR="#2e7d32"><FONT COLOR="white"><B>team_members</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><U>team_id</U> (PK, FK)</TD></TR>
+    <TR><TD ALIGN="LEFT"><U>participant_id</U> (PK, FK)</TD></TR>
+    <TR><TD ALIGN="LEFT">role</TD></TR></TABLE>>];
+  submissions [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4">
+    <TR><TD BGCOLOR="#1f4e79"><FONT COLOR="white"><B>submissions</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><U>submission_id</U> (PK)</TD></TR>
+    <TR><TD ALIGN="LEFT">team_id (FK, UNIQUE)</TD></TR><TR><TD ALIGN="LEFT">project_title</TD></TR>
+    <TR><TD ALIGN="LEFT">repo_url</TD></TR></TABLE>>];
+  judges [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4">
+    <TR><TD BGCOLOR="#1f4e79"><FONT COLOR="white"><B>judges</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><U>judge_id</U> (PK)</TD></TR>
+    <TR><TD ALIGN="LEFT">judge_name</TD></TR><TR><TD ALIGN="LEFT">email (UNIQUE)</TD></TR>
+    <TR><TD ALIGN="LEFT">expertise</TD></TR></TABLE>>];
+  scores [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4">
+    <TR><TD BGCOLOR="#2e7d32"><FONT COLOR="white"><B>scores</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><U>score_id</U> (PK)</TD></TR>
+    <TR><TD ALIGN="LEFT">submission_id (FK)</TD></TR><TR><TD ALIGN="LEFT">judge_id (FK)</TD></TR>
+    <TR><TD ALIGN="LEFT">innovation, technical,</TD></TR><TR><TD ALIGN="LEFT">presentation (0-10)</TD></TR></TABLE>>];
+  hackathons -- teams [taillabel="1", headlabel="N", label="hosts"];
+  teams -- team_members [taillabel="1", headlabel="N", label="has"];
+  participants -- team_members [taillabel="1", headlabel="N", label="joins"];
+  teams -- submissions [taillabel="1", headlabel="1", label="submits"];
+  submissions -- scores [taillabel="1", headlabel="N", label="receives"];
+  judges -- scores [taillabel="1", headlabel="N", label="gives"];
+}
